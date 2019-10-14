@@ -34,6 +34,6 @@ RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-x86_6
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     rm /home/anaconda.sh && \
     echo "conda activate base" >> ~/.zshrc && \
-    echo "export PATH=/opt/conda/bin:$PATH" >> ~/.zshrc    echo "export PATH=/opt/conda/bin:$PATH" >> ~/.zshrc
+    echo "export PATH=/opt/conda/bin:$PATH" >> ~/.zshrc
     
 
