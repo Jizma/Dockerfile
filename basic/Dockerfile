@@ -29,11 +29,10 @@ RUN sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirrors.163.com/ubuntu/#' 
     rm -rf /var/lib/apt/lists/*
   
     # conda
-RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-x86_64.sh -O /home/anaconda.sh && \
-    /bin/bash /home/anaconda.sh -b -p /opt/conda && \
+RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-x86_64.sh -O /home/anaconda.sh
+RUN /bin/bash /home/anaconda.sh -b -p /opt/conda && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     rm /home/anaconda.sh && \
-    echo "conda activate base" >> ~/.zshrc && \
     echo "export PATH=/opt/conda/bin:$PATH" >> ~/.zshrc
     
 
