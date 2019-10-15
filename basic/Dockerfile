@@ -15,7 +15,7 @@ RUN sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirrors.163.com/ubuntu/#' 
     aptitude install -y wget && \
     # zsh
     aptitude install -y zsh && \
-    chsh -s bin/zsh && zsh && \
+    chsh -s /bin/zsh && zsh && \
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" && \
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting && \
     echo "source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc && \
@@ -35,5 +35,18 @@ RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-x86_6
     rm /home/anaconda.sh && \
     echo "export PATH=/opt/conda/bin:$PATH" >> ~/.zshrc && \
     echo "conda init zsh" >> ~/.zshrc
+
+    #SSH
+RUN aptitude update && aptitude install -y openssh-server && \
+    mkdir /var/run/sshd && \
+    echo 'root:`' | chpasswd && \
+    sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
+    echo "export VISIBLE=now" >> /etc/profile && \
+    echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
+
     
 
