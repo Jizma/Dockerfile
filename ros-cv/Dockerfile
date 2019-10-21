@@ -1,4 +1,4 @@
-FROM jizma/dev-env:latest
+FROM jizma/dev-env:basic
 RUN aptitude update && aptitude upgrade -y
 ENV DEBIAN_FRONTEND noninteractive 
 RUN aptitude install -y libopencv-dev
@@ -11,4 +11,4 @@ RUN  aptitude update && \
            aptitude install -y ros-melodic-desktop-full && \
            rosdep init && \ 
            rosdep update && \
-           echo "source /opt/ros/melodic/setup.bash" >> ~/.zshrc
+           echo "source /opt/ros/melodic/setup.zsh" >> ~/.zshrc
