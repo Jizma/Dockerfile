@@ -13,13 +13,7 @@ RUN sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirrors.163.com/ubuntu/#' 
     aptitude install -y git && \
     # wget
     aptitude install -y wget && \
-    # zsh
-    aptitude install -y zsh && \
-    chsh -s /bin/zsh && zsh && \
-    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" && \
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/zsh-syntax-highlighting && \
-    echo "source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc && \
-    # cmake
+     # cmake
     aptitude install -y cmake && \
     aptitude install -y cmake-gui && \
     # glog
@@ -27,8 +21,17 @@ RUN sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirrors.163.com/ubuntu/#' 
     # htop
     aptitude install -y htop &&\
     # clean
-    aptitude clean && \
-    rm -rf /var/lib/apt/lists/*
+    aptitude clean
+
+    # zsh
+RUN aptitude install -y zsh && \
+    chsh -s /bin/zsh && zsh && \
+    sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" && \
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting && \
+    git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions && \
+    aptitude install -y autojump && \
+    sed -i "s/plugins=(git)/plugins=(git zsh-syntax-highlighting zsh-autosuggestions autojump)/" ~/.zshrc
+
   
     # conda
 RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-x86_64.sh -O /home/anaconda.sh && \
@@ -47,13 +50,13 @@ RUN /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu
 RUN aptitude update && aptitude install -y openssh-server && \
     mkdir /var/run/sshd && \
     echo 'root:`' | chpasswd && \
-    sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#X11DisplayOffset 10/X11DisplayOffset 10/' /etc/ssh/sshd_config && \
+    sed -i 's/#X11UseLocalhost yes/X11UseLocalhost no/' /etc/ssh/sshd_config && \
+    sed -i 's/#AllowTcpForwarding yes/AllowTcpForwarding yes/' /etc/ssh/sshd_config && \
     sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
     echo "export VISIBLE=now" >> /etc/profile && \
-    echo "PermitRootLogin yes" >> /etc/ssh/sshd_config && \
-    echo "X11DisplayOffset 10" >> /etc/ssh/sshd_config && \
-    echo "X11UseLocalhost no" >> /etc/ssh/sshd_config && \
-    echo "AllowTcpForwarding yes" >> /etc/ssh/sshd_config
+    aptitude clean
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
