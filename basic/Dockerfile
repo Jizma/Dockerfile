@@ -24,6 +24,8 @@ RUN sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirrors.163.com/ubuntu/#' 
     aptitude install -y cmake-gui && \
     # glog
     aptitude install -y libgoogle-glog-dev &&\
+    # htop
+    aptitude install -y htop &&\
     # clean
     aptitude clean && \
     rm -rf /var/lib/apt/lists/*
