@@ -37,7 +37,9 @@ RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-x86_6
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     rm /home/anaconda.sh && \
     echo "export PATH=/opt/conda/bin:$PATH" >> ~/.zshrc && \
-    echo "conda init zsh" >> ~/.zshrc
+    echo "conda init zsh" >> ~/.zshrc && \
+    echo "cd /home/" >> ~/.zshrc
+
 RUN /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/menpo && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge && \
@@ -55,6 +57,8 @@ RUN aptitude update && aptitude install -y openssh-server && \
     sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd && \
     echo "export VISIBLE=now" >> /etc/profile && \
     aptitude clean
+
+RUN locale-gen en_US en_US.UTF-8 zh_CN.UTF-8 && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
