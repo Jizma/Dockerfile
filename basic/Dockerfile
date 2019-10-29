@@ -22,9 +22,11 @@ RUN sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirrors.163.com/ubuntu/#' 
     aptitude clean
 
 # zsh
-RUN aptitude install -y zsh && \
-    chsh -s /bin/zsh && zsh && \
-    wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh && \
+RUN aptitude install -y zsh  powerline fonts-powerline && \
+    chsh -s /bin/zsh && zsh
+
+RUN    git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh && \
+    cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc && \
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting && \
     git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions && \
     aptitude install -y autojump && \
@@ -45,7 +47,6 @@ RUN /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch
 
-
 #SSH
 RUN aptitude update && aptitude install -y openssh-server && \
     mkdir /var/run/sshd && \
@@ -58,7 +59,8 @@ RUN aptitude update && aptitude install -y openssh-server && \
     echo "export VISIBLE=now" >> /etc/profile && \
     aptitude clean
 
-RUN locale-gen en_US en_US.UTF-8 zh_CN.UTF-8 && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+RUN aptitude update && aptitude install -y locales && \
+    locale-gen en_US en_US.UTF-8 zh_CN.UTF-8 && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
