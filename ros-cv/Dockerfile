@@ -1,4 +1,4 @@
-FROM jizma_local:basic
+FROM jizma/dev-env:basic
 
 ENV DEBIAN_FRONTEND noninteractive 
 
@@ -17,7 +17,7 @@ RUN echo "source /opt/ros/melodic/setup.zsh" >> ~/.zshrc
 
 
 # glog
-RUN git clone -b 8411df715c https://github.com/gflags/gflags.git && \ 
+RUN git clone  https://github.com/gflags/gflags.git && \ 
     cd gflags && \
     mkdir build && \
     cd build && \
@@ -41,24 +41,28 @@ RUN aptitude update && aptitude install -y software-properties-common && \
     aptitude install -y libjasper1 libjasper-dev libgtk-3-dev libatlas-base-dev liblapacke-dev && \
     aptitude clean
 
-COPY opencv /home/opencv
-COPY opencv_contrib /home/opencv_contrib
+COPY opencv.zip /home/opencv.zip
+COPY opencv_contrib.zip /home/opencv_contrib.zip
 
-# RUN cd /home/opencv && mkdir build && cd build && \
-
-# cmake -D CMAKE_BUILD_TYPE=Release \
-#       -D CMAKE_INSTALL_PREFIX=/usr/local/opencv \
-#       -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
-#       -D INSTALL_C_EXAMPLES=OFF \
-#       -D INSTALL_PYTHON_EXAMPLES=OFF \
-#       -D BUILD_EXAMPLES=OFF \
-#       -D WITH_CUDA=ON \
-#       -D WITH_TBB=ON \
-#       -D OPENCV_ENABLE_NONFREE=ON \
-#       -D WITH_OPENGL=ON \
-#       -D WITH_OPENMP=ON \
-#       -D BUILD_opencv_world=ON  \
-#        .. 
+RUN conda uninstall -y libtiff && conda install -y hdf5
+RUN cd /home/ && unzip opencv.zip &&  opencv_contrib.zip 
+RUN cd /home/opencv && mkdir build && cd build && \
+    cmake -D CMAKE_BUILD_TYPE=Release \
+    -D CMAKE_INSTALL_PREFIX=/usr/local/opencv \
+    -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
+    -D INSTALL_C_EXAMPLES=OFF \
+    -D INSTALL_PYTHON_EXAMPLES=OFF \
+    -D BUILD_EXAMPLES=OFF \
+    -D WITH_CUDA=ON \
+    -D WITH_TBB=ON \
+    -D OPENCV_ENABLE_NONFREE=ON \
+    -D WITH_OPENGL=ON \
+    -D WITH_OPENMP=ON \
+    -D BUILD_opencv_world=ON  \
+    ..  && \
+    make -j4 && \
+    make install && \
+    ldconfig
 
 
 
