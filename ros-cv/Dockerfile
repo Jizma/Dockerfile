@@ -1,10 +1,10 @@
-FROM jizma/dev-env:basic
-
-RUN aptitude update && aptitude upgrade -y
+FROM jizma_local:basic
 
 ENV DEBIAN_FRONTEND noninteractive 
 
-RUN aptitude install -y libopencv-dev libeigen3-dev lsb-core
+RUN aptitude update && aptitude upgrade -y
+
+RUN aptitude install -y libeigen3-dev lsb-core
 
 # ROS
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' && \
