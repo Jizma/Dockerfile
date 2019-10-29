@@ -17,11 +17,11 @@ RUN echo "source /opt/ros/melodic/setup.zsh" >> ~/.zshrc
 
 
 # glog
-RUN git clone https://github.com/gflags/gflags.git && \
+RUN git clone -b 8411df715c https://github.com/gflags/gflags.git && \ 
     cd gflags && \
     mkdir build && \
     cd build && \
-    cmake ..  && \
+    cmake -DBUILD_SHARED_LIBS=ON  ..  && \
     make  && \
     make install && \
     cd ../.. && rm -r gflags && \
@@ -29,7 +29,7 @@ RUN git clone https://github.com/gflags/gflags.git && \
     cd glog && \
     mkdir build && \
     cd build && \
-    cmake .. && \
+    cmake -DBUILD_SHARED_LIBS=ON  .. && \
     make && \
     make install && \
     cd ../.. && rm -r glog
@@ -58,9 +58,7 @@ COPY opencv_contrib /home/opencv_contrib
 #       -D WITH_OPENGL=ON \
 #       -D WITH_OPENMP=ON \
 #       -D BUILD_opencv_world=ON  \
-#       -D OPENCV_DNN_CUDA=ON \
 #        .. 
-
 
 
 

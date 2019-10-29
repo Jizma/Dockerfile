@@ -13,7 +13,7 @@ RUN sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirrors.163.com/ubuntu/#' 
     aptitude install -y git && \
     # wget
     aptitude install -y wget && \
-     # cmake
+    # cmake
     aptitude install -y cmake && \
     aptitude install -y cmake-gui && \
     # htop
@@ -21,7 +21,7 @@ RUN sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirrors.163.com/ubuntu/#' 
     # clean
     aptitude clean
 
-    # zsh
+# zsh
 RUN aptitude install -y zsh && \
     chsh -s /bin/zsh && zsh && \
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" && \
@@ -30,8 +30,8 @@ RUN aptitude install -y zsh && \
     aptitude install -y autojump && \
     sed -i "s/plugins=(git)/plugins=(git zsh-syntax-highlighting zsh-autosuggestions autojump)/" ~/.zshrc
 
-  
-    # conda
+
+# conda
 RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-x86_64.sh -O /home/anaconda.sh && \
     /bin/bash /home/anaconda.sh -b -p /opt/conda && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
@@ -44,9 +44,9 @@ RUN /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/menpo && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch
-    
 
-    #SSH
+
+#SSH
 RUN aptitude update && aptitude install -y openssh-server && \
     mkdir /var/run/sshd && \
     echo 'root:`' | chpasswd && \
@@ -63,5 +63,5 @@ RUN locale-gen en_US en_US.UTF-8 zh_CN.UTF-8 && update-locale LC_ALL=en_US.UTF-8
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
 
-    
+
 
