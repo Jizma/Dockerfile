@@ -18,6 +18,8 @@ RUN sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirrors.163.com/ubuntu/#' 
     aptitude install -y cmake-gui && \
     # htop
     aptitude install -y htop &&\
+    # screen
+    aptitude install -y screen &&\
     # clean
     aptitude clean
 
