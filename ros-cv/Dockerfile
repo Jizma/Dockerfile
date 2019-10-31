@@ -34,6 +34,16 @@ RUN git clone  https://github.com/gflags/gflags.git && \
     make install && \
     cd ../.. && rm -r glog
 
+# cudnn
+COPY cudnn-10.1-linux-x64-v7.6.4.38.tgz /home/cudnn.tgz 
+RUN cd /home/ && \
+    tar zxvf cudnn.tgz && \
+    cp -P cuda/lib64/libcudnn* /usr/local/cuda-10.1/lib64/ && \
+    cp  cuda/include/cudnn.h /usr/local/cuda-10.1/include/ && \
+    chmod a+r /usr/local/cuda-10.1/include/cudnn.h && chmod a+r /usr/local/cuda-10.1/lib64/libcudnn* && \
+    rm cudnn.tgz && rm -r cuda
+
+
 # opencv
 RUN aptitude update && aptitude install -y software-properties-common && \
     add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main" && \
@@ -44,7 +54,7 @@ RUN aptitude update && aptitude install -y software-properties-common && \
 COPY opencv.zip /home/opencv.zip
 COPY opencv_contrib.zip /home/opencv_contrib.zip
 
-RUN conda uninstall -y libtiff && conda install -y hdf5
+RUN /opt/conda/bin/conda uninstall -y libtiff &&  /opt/conda/bin/conda install -y hdf5
 RUN cd /home/ && unzip opencv.zip &&  opencv_contrib.zip 
 RUN cd /home/opencv && mkdir build && cd build && \
     cmake -D CMAKE_BUILD_TYPE=Release \
@@ -63,6 +73,16 @@ RUN cd /home/opencv && mkdir build && cd build && \
     make -j4 && \
     make install && \
     ldconfig
+
+RUN cd /home/ && \
+    rm opencv.zip && \
+    rm opencv_contrib.zip && \
+    rm -r  opencv && \
+    rm -r opencv_contrib
+
+
+COPY conda_env_torch1.3_cv4.yaml /home/conda_env_torch1.3_cv4.yaml
+RUN /opt/conda/bin/conda env create -f /home/conda_env_torch1.3_cv4.yaml && rm /home/conda_env_torch1.3_cv4.yaml
 
 
 
