@@ -35,13 +35,13 @@ RUN git clone  https://github.com/gflags/gflags.git && \
     cd ../.. && rm -r glog
 
 # cudnn
-COPY cudnn-10.1-linux-x64-v7.6.4.38.tgz /home/cudnn.tgz 
+COPY cudnn-10.1-linux-x64-v7.6.4.38.tgz /home/
 RUN cd /home/ && \
-    tar zxvf cudnn.tgz && \
+    tar zxvf cudnn-10.1-linux-x64-v7.6.4.38.tgz && \
     cp -P cuda/lib64/libcudnn* /usr/local/cuda-10.1/lib64/ && \
     cp  cuda/include/cudnn.h /usr/local/cuda-10.1/include/ && \
     chmod a+r /usr/local/cuda-10.1/include/cudnn.h && chmod a+r /usr/local/cuda-10.1/lib64/libcudnn* && \
-    rm cudnn.tgz && rm -r cuda
+    rm cudnn-10.1-linux-x64-v7.6.4.38.tgz && rm -r cuda
 
 
 # opencv
@@ -55,7 +55,7 @@ COPY opencv.zip /home/opencv.zip
 COPY opencv_contrib.zip /home/opencv_contrib.zip
 
 RUN /opt/conda/bin/conda uninstall -y libtiff &&  /opt/conda/bin/conda install -y hdf5
-RUN cd /home/ && unzip opencv.zip &&  opencv_contrib.zip 
+RUN cd /home/ && unzip opencv.zip &&  unzip opencv_contrib.zip 
 RUN cd /home/opencv && mkdir build && cd build && \
     cmake -D CMAKE_BUILD_TYPE=Release \
     -D CMAKE_INSTALL_PREFIX=/usr/local/opencv \
@@ -69,6 +69,7 @@ RUN cd /home/opencv && mkdir build && cd build && \
     -D WITH_OPENGL=ON \
     -D WITH_OPENMP=ON \
     -D BUILD_opencv_world=ON  \
+    -D CUDA_ARCH_BIN=6.0 6.1 7.0 7.5 \
     ..  && \
     make -j4 && \
     make install && \
