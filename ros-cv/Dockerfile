@@ -35,13 +35,13 @@ RUN git clone  https://github.com/gflags/gflags.git && \
     cd ../.. && rm -r glog
 
 # cudnn
-COPY cudnn-10.1-linux-x64-v7.6.4.38.tgz /home/cudnn-10.1-linux-x64-v7.6.4.38.tgz
+COPY cudnn-10.1-linux-x64-v7.6.4.38.zip /home/cudnn-10.1-linux-x64-v7.6.4.38.zip
 RUN cd /home/ && \
-    tar xvf cudnn-10.1-linux-x64-v7.6.4.38.tgz && \
-    cp -P cuda/lib64/libcudnn* /usr/local/cuda-10.1/lib64/ && \
-    cp  cuda/include/cudnn.h /usr/local/cuda-10.1/include/ && \
+    unzip cudnn-10.1-linux-x64-v7.6.4.38.zip && \
+    cp -P cudnn-10.1-linux-x64-v7.6.4.38/cuda/lib64/libcudnn* /usr/local/cuda-10.1/lib64/ && \
+    cp  cudnn-10.1-linux-x64-v7.6.4.38/cuda/include/cudnn.h /usr/local/cuda-10.1/include/ && \
     chmod a+r /usr/local/cuda-10.1/include/cudnn.h && chmod a+r /usr/local/cuda-10.1/lib64/libcudnn* && \
-    rm cudnn-10.1-linux-x64-v7.6.4.38.tgz && rm -r cuda
+    rm cudnn-10.1-linux-x64-v7.6.4.38.zip && rm -r cudnn-10.1-linux-x64-v7.6.4.38
 
 
 # opencv
