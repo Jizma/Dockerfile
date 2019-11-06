@@ -34,15 +34,6 @@ RUN git clone  https://github.com/gflags/gflags.git && \
     make install && \
     cd ../.. && rm -r glog
 
-# cudnn
-COPY cudnn-10.1-linux-x64-v7.6.4.38.zip /home/cudnn-10.1-linux-x64-v7.6.4.38.zip
-RUN cd /home/ && \
-    unzip cudnn-10.1-linux-x64-v7.6.4.38.zip && \
-    cp -P cudnn-10.1-linux-x64-v7.6.4.38/cuda/lib64/libcudnn* /usr/local/cuda-10.1/lib64/ && \
-    cp  cudnn-10.1-linux-x64-v7.6.4.38/cuda/include/cudnn.h /usr/local/cuda-10.1/include/ && \
-    chmod a+r /usr/local/cuda-10.1/include/cudnn.h && chmod a+r /usr/local/cuda-10.1/lib64/libcudnn* && \
-    rm cudnn-10.1-linux-x64-v7.6.4.38.zip && rm -r cudnn-10.1-linux-x64-v7.6.4.38
-
 
 # opencv
 RUN aptitude update && aptitude install -y software-properties-common && \
@@ -51,11 +42,14 @@ RUN aptitude update && aptitude install -y software-properties-common && \
     aptitude install -y libjasper1 libjasper-dev libgtk-3-dev libatlas-base-dev liblapacke-dev && \
     aptitude clean
 
-COPY opencv.zip /home/opencv.zip
-COPY opencv_contrib.zip /home/opencv_contrib.zip
+RUN cd /home/ && \
+    git clone https://github.com/opencv/opencv.git && \
+    git clone https://github.com/opencv/opencv_contrib.git
+# COPY opencv.zip /home/opencv.zip
+# COPY opencv_contrib.zip /home/opencv_contrib.zip
 
 RUN /opt/conda/bin/conda uninstall -y libtiff &&  /opt/conda/bin/conda install -y hdf5
-RUN cd /home/ && unzip opencv.zip &&  unzip opencv_contrib.zip 
+# RUN cd /home/ && unzip opencv.zip &&  unzip opencv_contrib.zip 
 RUN cd /home/opencv && mkdir build && cd build && \
     cmake -D CMAKE_BUILD_TYPE=Release \
     -D CMAKE_INSTALL_PREFIX=/usr/local/opencv \
@@ -76,8 +70,8 @@ RUN cd /home/opencv && mkdir build && cd build && \
     ldconfig
 
 RUN cd /home/ && \
-    rm opencv.zip && \
-    rm opencv_contrib.zip && \
+    # rm opencv.zip && \
+    # rm opencv_contrib.zip && \
     rm -r  opencv && \
     rm -r opencv_contrib
 
