@@ -1,10 +1,11 @@
-FROM nvidia/cuda
+FROM nvidia/cuda:10.1-cudnn7-devel
 #update source list
 RUN sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirrors.163.com/ubuntu/#' /etc/apt/sources.list && \ 
-    apt-get update && \
+    apt-get update --fix-missing && \
     apt-get upgrade -y && \
     # aptitude
     apt-get install aptitude -y && \
+    aptitude update && \
     # curl
     aptitude install -y curl && \
     # vim
