@@ -63,7 +63,7 @@ RUN cd /home/opencv && mkdir build && cd build && \
     -D WITH_OPENGL=ON \
     -D WITH_OPENMP=ON \
     -D BUILD_opencv_world=ON  \
-    -D CUDA_ARCH_BIN=6.0 6.1 7.0 7.5 \
+    -D CUDA_ARCH_BIN=7.0 \
     ..  && \
     make -j4 && \
     make install && \
