@@ -73,7 +73,7 @@ dependencies:
   - olefile=0.46=py_0
   - opencv=4.1.1=py37h0cc45ee_2
   - openh264=1.8.0=hdbcaa40_1000
-  - openssl=1.1.1c=h516909a_0
+  - openssl=1.1.1d=h516909a_0
   - pandas=0.25.2=py37hb3f55d8_0
   - pcre=8.41=he1b5a44_1004
   - pillow=6.2.0=py37h6b7be26_0
@@ -113,10 +113,14 @@ dependencies:
   - xorg-xextproto=7.3.0=h14c3975_1002
   - xorg-xproto=7.0.31=h14c3975_1007
   - xz=5.2.4=h14c3975_1001
+  - yaml=0.1.7=h14c3975_1001
   - zlib=1.2.11=h516909a_1006
   - zstd=1.4.0=h3b9ef0a_0
   - pip:
+    - glog==0.3.1
     - pyqt5-sip==4.19.18
     - pyqtwebengine==5.12.1
+    - python-gflags==3.1.2
+    - seaborn==0.9.0
 prefix: /opt/conda/envs/pytorch1.3
 
