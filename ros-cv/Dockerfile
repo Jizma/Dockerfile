@@ -63,21 +63,21 @@ RUN cd /home/opencv && mkdir build && cd build && \
     -D WITH_OPENGL=ON \
     -D WITH_OPENMP=ON \
     -D BUILD_opencv_world=ON  \
-    -D CUDA_ARCH_BIN=7.0 \
-    ..  && \
-    make -j4 && \
-    make install && \
-    ldconfig
+    -D CUDA_ARCH_BIN=6.1 7.0 \
+    ..
+#    make -j4 && \
+#    make install && \
+#    ldconfig
 
-RUN cd /home/ && \
+#RUN cd /home/ && \
     # rm opencv.zip && \
     # rm opencv_contrib.zip && \
-    rm -r  opencv && \
-    rm -r opencv_contrib
+#    rm -r  opencv && \
+#    rm -r opencv_contrib
 
 
-COPY conda_env_torch1.3_cv4.yaml /home/conda_env_torch1.3_cv4.yaml
-RUN /opt/conda/bin/conda env create -f /home/conda_env_torch1.3_cv4.yaml && rm /home/conda_env_torch1.3_cv4.yaml
+#COPY conda_env_torch1.3_cv4.yaml /home/conda_env_torch1.3_cv4.yaml
+#RUN /opt/conda/bin/conda env create -f /home/conda_env_torch1.3_cv4.yaml && rm /home/#conda_env_torch1.3_cv4.yaml
 
 
 
