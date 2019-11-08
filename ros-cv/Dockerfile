@@ -1,4 +1,4 @@
-FROM jizma/dev-env:ros-cv
+FROM jizma/dev-env:ros-cv-cache
 
 RUN aptitude update && aptitude upgrade -y
 
