@@ -76,8 +76,8 @@ RUN cd /home/opencv && mkdir build && cd build && \
 #    rm -r opencv_contrib
 
 
-#COPY conda_env_torch1.3_cv4.yaml /home/conda_env_torch1.3_cv4.yaml
-#RUN /opt/conda/bin/conda env create -f /home/conda_env_torch1.3_cv4.yaml && rm /home/#conda_env_torch1.3_cv4.yaml
+COPY conda_env_torch1.3_cv4.yaml /home/conda_env_torch1.3_cv4.yaml
+RUN /opt/conda/bin/conda env create -f /home/conda_env_torch1.3_cv4.yaml && rm /home/conda_env_torch1.3_cv4.yaml
 
 
 
