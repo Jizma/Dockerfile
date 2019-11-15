@@ -41,8 +41,7 @@ RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.07-Linux-x86_6
     /bin/bash /home/anaconda.sh -b -p /opt/conda && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     rm /home/anaconda.sh && \
-    echo "export PATH=/opt/conda/bin:$PATH" >> ~/.zshrc && \
-    echo "cd /home/" >> ~/.zshrc
+    echo "export PATH=/opt/conda/bin:$PATH" >> ~/.zshrc
 
 RUN /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main && \
     /opt/conda/bin/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/menpo && \

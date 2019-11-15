@@ -17,8 +17,7 @@ RUN /opt/conda/bin/conda env create -f /home/conda_env_torch1.3_cv4.yaml && rm /
 RUN cd /home/ && \
     wget https://download.jetbrains.com/cpp/CLion-2019.2.5.tar.gz && \
     tar zfx CLion-2019.2.5.tar.gz && \
-    rm CLion-2019.2.5.tar.gz && \
-    echo "export PATH=$PATH:/home/clion-2019.2.5/bin" >> ~/.zshrc 
+    rm CLion-2019.2.5.tar.gz
 
 
 
