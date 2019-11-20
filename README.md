@@ -1,5 +1,5 @@
 
-sudo nvidia-docker run -d -v /home/majizhou/WorkSpace:/home/majizhou/WorkSpace -v /media/majizhou/Jizhou_TS/Dataset/Hengdian_outdoor:/home/majizhou/Datasets -v/media/majizhou/901d8ec4-c551-4696-a3f2-273a2ca4562f/home/majizhou/WorkSpace/Datasets/Hengdian_Xiaodai:/home/majizhou/Datasets_Hengdian --restart=always  --name=ros_cv_ml 59285b03d114 
+sudo nvidia-docker run -d -v /home/majizhou/WorkSpace:/home/majizhou/WorkSpace --name=ros_cv_ml 602b98e4cc2f 
 
 //设置docker内ros向外部roscore发消息
 //设置本机IP
