@@ -12,7 +12,7 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main"
     curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | apt-key add -  && \
     aptitude update && \
     aptitude install -y ros-melodic-desktop-full && \
-    aptitude install ros-melodic-map-server
+    aptitude install -y ros-melodic-map-server
 
 RUN echo "source /opt/ros/melodic/setup.zsh" >> ~/.zshrc 
 
