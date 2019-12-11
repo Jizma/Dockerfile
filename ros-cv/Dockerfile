@@ -18,6 +18,10 @@ RUN cd /home/ && \
     wget https://download.jetbrains.com/cpp/CLion-2019.2.5.tar.gz && \
     tar zfx CLion-2019.2.5.tar.gz && \
     rm CLion-2019.2.5.tar.gz
+RUN aptitude update && aptitude install -y proxychains4 &&
+    sed -i 's/socks4         127.0.0.1 9050/socks5         127.0.0.1 1080/' /etc/proxychains4.conf
+
+
 
 
 
