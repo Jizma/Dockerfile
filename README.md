@@ -7,7 +7,7 @@ sudo nvidia-docker run -d -v /home/majizhou/WorkSpace:/home/majizhou/WorkSpace -
   echo "export ROS_IP=$HOST_IP" >> ~/.zshrc && \
   echo "export ROS_MASTER_URI=http://$HOST_IP:11311" >>  ~/.zshrc
 //ssh 命令
-ssh -X -t root@172.17.0.2 ROS_MASTER_URI=$ROS_MASTER_URI ROS_IP=172.17.0.2 exec zsh
+ ssh -X -t -L 16006:127.0.0.1:6006 root@172.17.0.2 ROS_MASTER_URI=$ROS_MASTER_URI ROS_IP=172.17.0.2 exec zsh
 ssh 连接会重置环境参数，所以无法通过-e进行环境设置
 //注：设置原则
 services:
