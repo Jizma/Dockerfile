@@ -21,6 +21,9 @@ RUN sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirrors.163.com/ubuntu/#' 
     aptitude install -y htop &&\
     # screen
     aptitude install -y screen &&\
+    # pip
+    aptitude install -y python3-pip &&\
+    pip3 install --upgrade pip &&\
     # clean
     aptitude clean
 
