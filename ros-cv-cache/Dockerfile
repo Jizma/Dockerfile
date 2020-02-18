@@ -66,20 +66,13 @@ RUN cd /home/opencv && mkdir build && cd build && \
     -D BUILD_opencv_world=ON  \
     -D CUDA_ARCH_BIN=6.1 7.0 \
     ..
-#    make -j4 && \
-#    make install && \
-#    ldconfig
 
-#RUN cd /home/ && \
-    # rm opencv.zip && \
-    # rm opencv_contrib.zip && \
-#    rm -r  opencv && \
-#    rm -r opencv_contrib
-
-
-
-
-
-
-
-
+RUN cd /home/ && \
+    git clone https://github.com/jbeder/yaml-cpp.git && \
+    cd /home/yaml-cpp/ && mkdir build && cd build && \
+    cmake -D DYAML_BUILD_SHARED_LIBS=ON \
+    ..
+RUN cd /home/yaml-cpp/build && \
+    make -j4 && \
+    make install && \
+    rm -r /home/yaml-cpp/
