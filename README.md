@@ -11,6 +11,7 @@ sudo nvidia-docker run -d -v /home/majizhou/Documents:/home/majizhou/Documents -
   
 //ssh 命令
  ssh -X -t -L 16006:127.0.0.1:6006 root@172.17.0.2 ROS_MASTER_URI=$ROS_MASTER_URI ROS_IP=172.17.0.2 exec zsh
+ 
 ssh 连接会重置环境参数，所以无法通过-e进行环境设置
 
 
