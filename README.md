@@ -1,6 +1,5 @@
 
-sudo nvidia-docker run -d -v /home/majizhou/Documents:/home/majizhou/Documents -P --name=majizhou_ros_cv_ml a369b54c0c73 
-
+sudo nvidia-docker run -d -v /home/majizhou/Documents:/home/majizhou/Documents --add-host mnl:127.0.0.1 --add-host ${LOCAL_HOST}:127.0.0.1 --hostname mnl --name=majizhou_ros_cv_ml a369b54c0c73
 //设置docker内ros向外部roscore发消息
 //设置本机IP
   echo "HOST_IP=$(eval 'hostname -I | cut -d " " -f1')" >> ~/.zshrc && \
