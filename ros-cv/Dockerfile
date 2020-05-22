@@ -1,6 +1,10 @@
 FROM jizma/dev-env:ros-cv-cache
 
+RUN sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirrors.163.com/ubuntu/#' /etc/apt/sources.list
 RUN aptitude update && aptitude upgrade -y
+# Conda
+COPY conda_env_torch1.3_cv4.yaml /home/conda_env_torch1.3_cv4.yaml
+RUN /opt/conda/bin/conda env create -f /home/conda_env_torch1.3_cv4.yaml && rm /home/conda_env_torch1.3_cv4.yaml
 
 RUN cd /home/opencv/build && \
     make -j4 && \

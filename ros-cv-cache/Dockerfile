@@ -6,9 +6,6 @@ RUN aptitude update && aptitude upgrade -y
 
 RUN aptitude install -y libeigen3-dev lsb-core
 
-# Conda
-COPY conda_env_torch1.3_cv4.yaml /home/conda_env_torch1.3_cv4.yaml
-RUN /opt/conda/bin/conda env create -f /home/conda_env_torch1.3_cv4.yaml && rm /home/conda_env_torch1.3_cv4.yaml
 
 # ROS
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' && \
